@@ -1,0 +1,56 @@
+@import "~vue-material/dist/theme/engine"; // Import the theme engine
+
+@include md-register-theme(
+	"default",
+	(
+		primary: md-get-palette-color(blue, A200),
+		// The primary color of your application
+			accent: md-get-palette-color(pink, 500) // The accent or secondary color
+	)
+);
+
+@import "~vue-material/dist/theme/all"; // Apply the theme
+@import "loading";
+
+#app {
+	.md-content {
+		height: calc(100vh - 72px);
+		height: calc(var(--vh, 1vh) * 100 - 72px);
+		overflow-y: scroll;
+	}
+
+	.message {
+		background: md-get-palette-color(blue, A200);
+		color: #fff;
+		padding: 1em;
+		border-radius: 10px;
+		max-width: 70vw;
+		white-space: normal;
+		margin-left: 1em;
+		small {
+			margin-top: 1em;
+			display: block;
+		}
+	}
+
+	.md-list-item-content {
+		justify-items: flex-start;
+	}
+	.me {
+		.message {
+			background: md-get-palette-color(green, A400);
+			margin-left: initial;
+			max-width: 90vw;
+		}
+		.md-list-item-content {
+			justify-content: flex-end;
+		}		
+	}
+
+	.person {
+		flex-direction: column;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}

@@ -1,0 +1,35 @@
+[v-cloak] > * {
+	display: none;
+}
+[v-cloak]::before {
+	content: "loading…";
+	height: 100vh;
+	width: 100vw;
+	position: absolute;
+	background-color: md-get-palette-color(blue, A200);
+	color: #fff;
+	text-align: center;
+	font-size: 3em;
+	padding-top: 45vh;
+	font-weight: 900;
+}
+[v-cloak]::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 3em;
+	height: 3em;
+	margin-top: 1em;
+	margin-left: -1.5em;
+	border-radius: 50%;
+	border: 2px solid #ccc;
+	border-top-color: md-get-palette-color(blue, A200);
+	animation: spinner 0.6s linear infinite;
+	overflow: hidden;
+}
+@keyframes spinner {
+	to {
+		transform: rotate(360deg);
+	}
+}

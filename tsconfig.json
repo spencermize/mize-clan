@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"module":"CommonJS",
+		"noImplicitReturns": true,
+		"noImplicitAny": false,
+		"sourceMap": true,
+		"strict": true,
+		"target": "es2017",
+		"esModuleInterop": true,
+		"resolveJsonModule": true
+	}
+}

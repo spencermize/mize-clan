@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="manifest" href="manifest.json">
+
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="application-name" content="MizeChat">
+		<meta name="apple-mobile-web-app-title" content="MizeChat">
+		<meta name="theme-color" content="#448aff">
+		<meta name="msapplication-navbutton-color" content="#448aff">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<meta name="msapplication-starturl" content="https://mize-clan.firebaseapp.com">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<link rel="icon" type="image/png" sizes="300x300" href="icon.png">
+		<link rel="apple-touch-icon" type="image/png" sizes="300x300" href="icon.png">
+				
+		<title>Mizeclan Chat</title>
+
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/vue-material/dist/vue-material.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/vue-material/dist/theme/default.css"
+		/>
+		<link rel="stylesheet" href="build/style.css" />
+	</head>
+	<body>
+		<div id="app">
+			<div v-cloak>
+				<div v-if="!loggedIn">
+					<dialog-prompt v-on:change-user="login($event)"></dialog-prompt>
+				</div>
+				<md-content v-if="loggedIn" class="md-scrollbar">
+					<md-list>
+						<md-list-item v-for="message in cleanedMessages" :key="message.id" v-bind:class="{me: message.user === user.id}">
+							<div class="person" v-bind:style="{order: message.user === user.id ? 5 : -5 }">
+								<md-avatar v-if="message.user !== user.id" class="md-avatar-icon md-large">
+									<md-icon>person</md-icon>								
+								</md-avatar>
+								<small v-if="users && users[message.user] && message.user !== user.id">{{users[message.user].name}}</small>	
+							</div>
+							<div class="message">
+								{{message.text}}
+								<small>{{message.sendTimeFormatted}}</small>
+							</div>
+						</md-list-item>
+					</md-list>
+				</md-content>
+				<md-toolbar v-if="loggedIn">
+					<md-field md-inline>
+						<label>Type a message...</label>
+						<md-input v-on:keyup.enter="sendMessage" v-model="toSend.text"></md-input>
+						<md-button
+							v-if="!sending"
+							v-on:click="sendMessage"
+							class="md-primary md-icon-button"
+						>
+							<md-icon>send</md-icon>
+						</md-button>
+						<md-progress-spinner
+							v-if="sending"
+							:md-diameter="24"
+							:md-stroke="3"
+							md-mode="indeterminate"
+						></md-progress-spinner>
+					</md-field>
+				</md-toolbar>
+			</div>
+		</div>
+		<script src="build/script.js"></script>
+	</body>
+</html>
